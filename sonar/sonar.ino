@@ -1,52 +1,59 @@
 /* 
  * Code d'exemple pour un capteur à ultrasons HC-SR04.
  */
+#include <Servo.h>
 
-/* Constantes pour les broches */
-int TRIGGER_PIN = 2; // Broche TRIGGER
-int ECHO_PIN = 3;    // Broche ECHO
- 
-/* Constantes pour le timeout */
-const unsigned long MEASURE_TIMEOUT = 25000UL; // 25ms = ~8m à 340m/s
+class Sonar {
+  /*
+   * Class for the Sonar with its servo and its
+   * ultrasonic sensor
+   */
 
-/* Vitesse du son dans l'air en mm/us */
-const float SOUND_SPEED = 340.0 / 1000;
+  int angle;        // angle of the servo
+  int distance;     // distance of the obstacle in milimeters
+  Servo sonarServo; // Servo object
+  int pinServo;     // pin of the Servo
+  int triggerPin;   // pin of the trigger for the sensor
+  int echoPin;      // pin of the echo (response) of the sensor
 
-/** Fonction setup() */
-void setup() {
-   
-  /* Initialise le port série */
-  Serial.begin(9600);
-   
-  /* Initialise les broches */
-  pinMode(TRIGGER_PIN, OUTPUT);
-  digitalWrite(TRIGGER_PIN, LOW); // La broche TRIGGER doit être à LOW au repos
-  pinMode(ECHO_PIN, INPUT);
-}
- 
-/** Fonction loop() */
-void loop() {
-  
-  /* 1. Lance une mesure de distance en envoyant une impulsion HIGH de 10µs sur la broche TRIGGER */
-  digitalWrite(TRIGGER_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIGGER_PIN, LOW);
-  
-  /* 2. Mesure le temps entre l'envoi de l'impulsion ultrasonique et son écho (si il existe) */
-  long measure = pulseIn(ECHO_PIN, HIGH, MEASURE_TIMEOUT);
-   
-  /* 3. Calcul la distance à partir du temps mesuré */
-  float distance_mm = measure / 2.0 * SOUND_SPEED;
-   
-  /* Affiche les résultats en mm, cm et m */
-  Serial.print("Distance: ");
-  Serial.print(distance_mm);
-  Serial.print("mm ");
-  Serial.print(distance_mm / 10.0, 2);
-  Serial.print("cm ");
-  Serial.print(distance_mm / 1000.0, 2);
-  Serial.println("m ");
-   
-  /* Délai d'attente pour éviter d'afficher trop de résultats à la seconde */
-  delay(500);
+  /* constant for the timeout */
+  const unsigned long MEASURE_TIMEOUT = 25000UL; // 25ms = ~8m à 340m/s
+
+  /* sound speed */
+  const float SOUND_SPEED = 340.0 / 1000;
+
+  Sonar(Servo myServo, int pinS, int trigger, int echo) {
+    sonarServo = myServo;
+    pinServo = pinS;
+    sonarServo.attach(pinServo);
+    angle = sonarServo.read();
+    triggerPin = trigger;
+    echoPin = echo;
+  }
+
+  /*
+   * Updates the orientation of the sensor
+   * and the distance of the obstacle
+   */
+  void update() {
+    angle = sonarServo.read();
+    
+    /* sending the instructon to measure the distance */
+    digitalWrite(TRIGGER_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIGGER_PIN, LOW);
+    
+    /* measurin time between sending and receiving of the impulsion */
+    long measure = pulseIn(ECHO_PIN, HIGH, MEASURE_TIMEOUT);
+    
+    /* calculating the distance */
+    distance = measure / 2.0 * SOUND_SPEED;
+  }
+
+  /*
+   * Sets the angle of the sensor
+   */
+  void setAngle(int newAngle) {
+    sonarServo.write(newAngle);
+  }
 }
