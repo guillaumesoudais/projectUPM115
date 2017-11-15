@@ -34,4 +34,12 @@ class motors {
         analogWrite(bwdB, !left);
     }
 
+    void turnLeft(int speed) {
+        this.turn(true, speed);
+    }
+
+    void turnRight(int speed) {
+        this.turn(false, speed);
+    }
+
 }
