@@ -3,6 +3,11 @@
 
 #include <Arduino.h>
 
+void setup() {}
+
+void loop(){}
+
+
 class Motors {
     int enA;    // enable for motor A (left)
     int fwdA;   // forward pin for motor A
@@ -11,6 +16,15 @@ class Motors {
     int enB;    // enable for second motor B (right)
     int fwdB;   // forward pin for motor B
     int bwdB;    // backward pin for motor B
+
+    Motors(int ea, int fa, int ba, int eb, int fb, int bb) {
+      enA = ea;
+      fwdA = fa;
+      bwdA = ba;
+      enB = eb;
+      fwdB = fb;
+      bwdB = bb;
+    }
 
     void move(int speed, boolean forward = true) {
       analogWrite(enA, speed);
@@ -40,18 +54,18 @@ class Motors {
     }
 
     void turnLeft(int speed) {
-      this.turn(true, speed);
+      turn(true, speed);
     }
 
     void turnRight(int speed) {
-      this.turn(false, speed);
+      turn(false, speed);
     }
 
     void slowMove(int s) {
-      this.move(128);
+      move(128);
       delay(20);
-      this.move(s);
+      move(s);
     }
-}
+};
 
 #endif

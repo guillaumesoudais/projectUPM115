@@ -8,14 +8,18 @@
 
 #include <Servo.h>
 
+void setup() {}
+
+void loop() {}
+
 class Sonar {
   /*
    * Class for the Sonar with its servo and its
    * ultrasonic sensor
    */
 
-  public int angle;        // angle of the servo
-  public int distance;     // distance of the obstacle in milimeters
+  int angle;        // angle of the servo
+  int distance;     // distance of the obstacle in milimeters
   Servo sonarServo; // Servo object
   int pinServo;     // pin of the Servo
   int triggerPin;   // pin of the trigger for the sensor
@@ -40,16 +44,16 @@ class Sonar {
    * Updates the orientation of the sensor
    * and the distance of the obstacle
    */
-  public void update() {
+  void update() {
     angle = sonarServo.read();
     
     /* sending the instructon to measure the distance */
-    digitalWrite(TRIGGER_PIN, HIGH);
+    digitalWrite(triggerPin, HIGH);
     delayMicroseconds(10);
-    digitalWrite(TRIGGER_PIN, LOW);
+    digitalWrite(triggerPin, LOW);
     
     /* measurin time between sending and receiving of the impulsion */
-    long measure = pulseIn(ECHO_PIN, HIGH, MEASURE_TIMEOUT);
+    long measure = pulseIn(echoPin, HIGH, MEASURE_TIMEOUT);
     
     /* calculating the distance */
     distance = measure / 2.0 * SOUND_SPEED;
@@ -58,9 +62,9 @@ class Sonar {
   /*
    * Sets the angle of the sensor
    */
-  public void setAngle(int newAngle) {
+  void setAngle(int newAngle) {
     sonarServo.write(newAngle);
   }
-}
+};
 
 #endif
