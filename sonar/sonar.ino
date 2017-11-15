@@ -9,8 +9,8 @@ class Sonar {
    * ultrasonic sensor
    */
 
-  int angle;        // angle of the servo
-  int distance;     // distance of the obstacle in milimeters
+  public int angle;        // angle of the servo
+  public int distance;     // distance of the obstacle in milimeters
   Servo sonarServo; // Servo object
   int pinServo;     // pin of the Servo
   int triggerPin;   // pin of the trigger for the sensor
@@ -35,7 +35,7 @@ class Sonar {
    * Updates the orientation of the sensor
    * and the distance of the obstacle
    */
-  void update() {
+  public void update() {
     angle = sonarServo.read();
     
     /* sending the instructon to measure the distance */
@@ -53,7 +53,7 @@ class Sonar {
   /*
    * Sets the angle of the sensor
    */
-  void setAngle(int newAngle) {
+  public void setAngle(int newAngle) {
     sonarServo.write(newAngle);
   }
 }
