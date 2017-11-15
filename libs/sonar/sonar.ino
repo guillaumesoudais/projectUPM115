@@ -1,6 +1,11 @@
 /* 
  * Code d'exemple pour un capteur à ultrasons HC-SR04.
  */
+#ifndef Sonar_h
+#define Sonar_h
+
+#include <Arduino.h>
+
 #include <Servo.h>
 
 class Sonar {
@@ -57,3 +62,5 @@ class Sonar {
     sonarServo.write(newAngle);
   }
 }
+
+#endif

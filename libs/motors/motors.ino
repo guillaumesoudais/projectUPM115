@@ -1,4 +1,9 @@
-class motors {
+#ifndef Motors_h
+#define Motors_h
+
+#include <Arduino.h>
+
+class Motors {
     int enA;    // enable for motor A (left)
     int fwdA;   // forward pin for motor A
     int bwdA;   // backward pin for motor A
@@ -43,3 +48,5 @@ class motors {
     }
 
 }
+
+#endif
