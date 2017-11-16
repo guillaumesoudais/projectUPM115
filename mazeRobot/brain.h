@@ -5,16 +5,14 @@
 #include "sonar.h"
 #include "motors.h"
 
-int quartTour = 20;
-int pas = 50;
+int quartTour = 60;
+int pas = 100;
 int vit = 3;
 
 class Brain {
   public :
     Sonar *sonar;
     Motors *motor;
-    int memoire = 0;
-
     Brain(Sonar *s, Motors *m) {
       sonar = s;
       motor = m;
@@ -22,36 +20,40 @@ class Brain {
 
     void handleWall() {
       sonar->setAngle(0);
+      delay(200);
       sonar->update();
       if (sonar->distance > 100) {
         sonar->setAngle(90);
+        delay(200);
         motor->turnRight( vit, quartTour);
       }
       else {
         sonar->setAngle(180);
+        delay(200);
         sonar->update();
         if (sonar->distance > 100) {
           sonar->setAngle(90);
+          delay(200);
           motor->turnLeft( vit, quartTour);
         }
         else {
           sonar->setAngle(90);
+          delay(200);
           motor->turnLeft( vit, 2 * quartTour);
 
         }
       }
     }
     void pasEnAvant() {
-      memoire = 0;
+
       sonar->setAngle(90);
-      sonar->update();
       for (int i =  0; i < pas ; i++) {
         sonar->update();
-        if (sonar->distance > 100) {
+        if (sonar->distance < 100) {
           handleWall();
           break;
         }
-        motor->slowMove(25);
+        motor->slowMove(vit);
       }
     }
 
@@ -59,15 +61,18 @@ class Brain {
     void mainish() {
       sonar->setAngle(0);
       sonar->update();
-      if (sonar->distance > 100) {
-        motor->turnRight(vit, quartTour);
-        memoire++;
-        if (memoire == 4) {
+      if (sonar->distance < 100) {
           pasEnAvant();
-        }
       }
       else {
-        pasEnAvant();
+        sonar->setAngle(90);
+        if (sonar->distance < 100) {
+          handleWall();
+        }
+        else{
+
+          
+        }
       }
     }
 

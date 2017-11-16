@@ -24,7 +24,7 @@ class Sonar {
     int triggerPin;   // pin of the trigger for the sensor
     int echoPin;      // pin of the echo (response) of the sensor
     float distanceList[LENGTH];
-    int index = 0; 
+    int index = 0;
 
     /* constant for the timeout */
     const unsigned long MEASURE_TIMEOUT = 25000UL; // 25ms = ~8m à 340m/s
@@ -59,22 +59,34 @@ class Sonar {
       /* calculating the distance */
       distanceList[index] = measure / 2.0 * SOUND_SPEED;
       index ++;
-      if (index==LENGTH) {
+      if (index == LENGTH) {
         index = 0;
       }
 
       float d = 0;
-      for (int i =0; i<LENGTH; i++) {
+      for (int i = 0; i < LENGTH; i++) {
         d += distanceList[i];
       }
-      distance = d/LENGTH;
+      distance = d / LENGTH;
     }
 
     /*
       Sets the angle of the sensor
     */
-    void setAngle(int newAngle) {
-      sonarServo.write(newAngle);
+    void setAngle(int na ) {
+      int ag = sonarServo.read();
+      if (na < ag) {
+        for (int i = ag; i < na; i++) {
+          sonarServo.write(newAngle);
+          delay(5);
+        }
+      }
+      else {
+        for (int i = ag; i > na; i--) {
+          sonarServo.write(newAngle);
+          delay(5);
+        }
+      }
     }
 };
 
