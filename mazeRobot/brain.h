@@ -67,5 +67,7 @@ class Brain {
       }
     }
 
-}
+};
+
+#endif
 
