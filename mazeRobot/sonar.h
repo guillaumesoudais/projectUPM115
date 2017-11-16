@@ -74,19 +74,8 @@ class Sonar {
       Sets the angle of the sensor
     */
     void setAngle(int na ) {
-      int ag = sonarServo.read();
-      if (na < ag) {
-        for (int i = ag; i < na; i++) {
-          sonarServo.write(newAngle);
-          delay(5);
-        }
-      }
-      else {
-        for (int i = ag; i > na; i--) {
-          sonarServo.write(newAngle);
-          delay(5);
-        }
-      }
+      sonarServo.write(na);
+      delay(100);
     }
 };
 

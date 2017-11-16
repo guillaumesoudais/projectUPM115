@@ -25,13 +25,21 @@ class Motors {
       bwdB = bb;
     }
 
-    void move(int speed, boolean forward = true) {
+    void moveLeft(int speed, boolean forward = true) {
       analogWrite(enA, speed);
-      analogWrite(enB, speed);
+      digitalWrite(bwdA, !forward);      
       digitalWrite(fwdA, forward);
-      digitalWrite(fwdB, forward);
-      digitalWrite(bwdA, !forward);
+    }
+    
+    void moveRight(int speed, boolean forward=true) {
+      analogWrite(enB, speed);
+      digitalWrite(fwdB, forward);      
       digitalWrite(bwdB, !forward);
+    }
+
+    void move(int speed, boolean forward = true) {
+      moveLeft(speed, forward);
+      moveRight(speed, forward);
     }
 
     void stop() {
@@ -70,8 +78,22 @@ class Motors {
       }
     }
 
-    void slowMove(int n) {
-      move(255);
+    void slowMove(int n, forward=true) {
+      move(255, forward);
+      delay(n);
+      stop();
+      delay(6 - n);
+    }
+
+    void slowMoveLeft(int n) {
+      moveLeft(255);
+      delay(n);
+      stop();
+      delay(6 - n);
+    }
+
+    void slowMoveRight(int n) {
+      moveRight(255);
       delay(n);
       stop();
       delay(6 - n);
