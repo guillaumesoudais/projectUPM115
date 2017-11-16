@@ -5,6 +5,7 @@
 
 int quartTour = 20;
 int pas = 50;
+int vit = 3;
 
 class Brain {
   public :
@@ -22,18 +23,18 @@ class Brain {
       sonar->update();
       if (sonar->distance > 100) {
         sonar->setAngle(90);
-        moteur->slowTurn(false, quartTour);
+        moteur->turnRight( vit, quartTour);
       }
       else {
         sonar->setAngle(180);
         sonar->update();
         if (sonar->distance > 100) {
           sonar->setAngle(90);
-          moteur->slowTurn(true, quartTour);
+          moteur->turnLeft( vit, quartTour);
         }
         else {
           sonar->setAngle(90);
-          moteur->slowTurn(true, 2 * quartTour);
+          moteur->turnLeft( vit, 2 * quartTour);
 
         }
       }
@@ -46,17 +47,18 @@ class Brain {
         sonar->update();
         if (sonar->distance > 100) {
           handleWall();
+          break();
         }
         slowMove(25);
       }
     }
 
-    
+
     void mainish() {
       sonar->setAngle(0);
       sonar->update();
       if (sonar->distance > 100) {
-        moteur->slowTurn(false, quartTour);
+        moteur->turnRight(vit, quartTour);
         mmemoire++;
         if (mmemoire == 4) {
           pasEnAvant();

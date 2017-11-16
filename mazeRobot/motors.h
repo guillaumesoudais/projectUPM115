@@ -52,12 +52,22 @@ class Motors {
       digitalWrite(bwdB, !left);
     }
 
-    void turnLeft(int speed) {
-      turn(true, speed);
+    void turnLeft(int speed, int tps) {
+      for (int i = 0; i < tps; i++) {
+        turn(true, 255);
+        delay(n);
+        stop();
+        delay(6 - n);
+      }
     }
 
-    void turnRight(int speed) {
-      turn(false, speed);
+    void turnRight(int speed, int tps) {
+      for (int i = 0; i < tps; i++) {
+        turn(false, 255);
+        delay(n);
+        stop();
+        delay(6 - n);
+      }
     }
 
     void slowMove(int n) {
@@ -66,6 +76,7 @@ class Motors {
       stop();
       delay(6 - n);
     }
+
 };
 
 
