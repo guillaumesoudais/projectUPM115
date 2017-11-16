@@ -2,6 +2,8 @@
 #define Brain_h
 
 #include <Arduino.h>
+#include "sonar.h"
+#include "motors.h"
 
 int quartTour = 20;
 int pas = 50;
@@ -9,11 +11,11 @@ int vit = 3;
 
 class Brain {
   public :
-    Soanr sonar;
-    Motor motor;
+    Sonar *sonar;
+    Motors *motor;
     int memoire = 0;
 
-    Brain(Sonar s, Motor m) {
+    Brain(Sonar *s, Motors *m) {
       sonar = s;
       motor = m;
     }
@@ -23,23 +25,23 @@ class Brain {
       sonar->update();
       if (sonar->distance > 100) {
         sonar->setAngle(90);
-        moteur->turnRight( vit, quartTour);
+        motor->turnRight( vit, quartTour);
       }
       else {
         sonar->setAngle(180);
         sonar->update();
         if (sonar->distance > 100) {
           sonar->setAngle(90);
-          moteur->turnLeft( vit, quartTour);
+          motor->turnLeft( vit, quartTour);
         }
         else {
           sonar->setAngle(90);
-          moteur->turnLeft( vit, 2 * quartTour);
+          motor->turnLeft( vit, 2 * quartTour);
 
         }
       }
     }
-    void pasEnAvant(() {
+    void pasEnAvant() {
       memoire = 0;
       sonar->setAngle(90);
       sonar->update();
@@ -47,9 +49,9 @@ class Brain {
         sonar->update();
         if (sonar->distance > 100) {
           handleWall();
-          break();
+          break;
         }
-        slowMove(25);
+        motor->slowMove(25);
       }
     }
 
@@ -58,9 +60,9 @@ class Brain {
       sonar->setAngle(0);
       sonar->update();
       if (sonar->distance > 100) {
-        moteur->turnRight(vit, quartTour);
-        mmemoire++;
-        if (mmemoire == 4) {
+        motor->turnRight(vit, quartTour);
+        memoire++;
+        if (memoire == 4) {
           pasEnAvant();
         }
       }

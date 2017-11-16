@@ -52,7 +52,7 @@ class Motors {
       digitalWrite(bwdB, !left);
     }
 
-    void turnLeft(int speed, int tps) {
+    void turnLeft(int n, int tps) {
       for (int i = 0; i < tps; i++) {
         turn(true, 255);
         delay(n);
@@ -61,7 +61,7 @@ class Motors {
       }
     }
 
-    void turnRight(int speed, int tps) {
+    void turnRight(int n, int tps) {
       for (int i = 0; i < tps; i++) {
         turn(false, 255);
         delay(n);

@@ -2,9 +2,11 @@
 #include <Servo.h>
 #include "sonar.h"
 #include "motors.h"
+#include "brain.h"
 
 Motors *motors;
 Sonar *sonar;
+Brain *brain;
 int enA = 10;
 int enB = 9;
 int fwdA = 4;
@@ -23,6 +25,8 @@ int delta = 500;
 void setup() {
   motors = new Motors(enA, fwdA, bwdA, enB, fwdB, bwdB);
   sonar = new Sonar(myServo, pinServo, trigger, echo);
+  brain = new Brain(sonar, motors);
+
 
   pinMode(trigger, OUTPUT);
   digitalWrite(trigger, LOW);
@@ -37,15 +41,7 @@ void setup() {
 }
 
 void loop() {
-  sonar->update();
-  if (sonar->distance < 100) {
-    motors->stop();
-    isRolling = false;
-  }
-  else {
-    motors->slowMove(3);
-    isRolling = true;
-  }
+  brain->mainish();
 
 }
 
