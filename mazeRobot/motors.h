@@ -14,6 +14,8 @@ class Motors {
     int fwdB;   // forward pin for motor B
     int bwdB;    // backward pin for motor B
 
+    int nbSpeed; // number of available speed
+
     Motors(int ea, int fa, int ba, int eb, int fb, int bb) {
       enA = ea;
       fwdA = fa;
@@ -60,9 +62,9 @@ class Motors {
 
     void slowMove(int n) {
       move(255);
-      delay(5);
-      stop();
       delay(n);
+      stop();
+      delay(6 - n);
     }
 };
 

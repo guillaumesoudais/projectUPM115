@@ -40,9 +40,11 @@ void loop() {
   sonar->update();
   if (sonar->distance < 100) {
     motors->stop();
+    isRolling = false;
   }
   else {
-    motors->slowMove(25);
+    motors->slowMove(3);
+    isRolling = true;
   }
 
 }
