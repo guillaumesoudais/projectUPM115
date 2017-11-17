@@ -18,7 +18,8 @@ class Sonar {
 
   public :
     int angle;        // angle of the servo
-    float distance;     // distance of the obstacle in milimeters
+    float distance;    // distance of the obstacle in milimeters
+    float mean;
     Servo sonarServo; // Servo object
     int pinServo;     // pin of the Servo
     int triggerPin;   // pin of the trigger for the sensor
@@ -41,6 +42,13 @@ class Sonar {
       echoPin = echo;
     }
 
+    void longUpdate() {
+      for (int i=0; i<LENGTH; i++) {
+        update();
+      }
+    }
+    
+    
     /*
       Updates the orientation of the sensor
       and the distance of the obstacle
@@ -57,7 +65,8 @@ class Sonar {
       long measure = pulseIn(echoPin, HIGH, MEASURE_TIMEOUT);
 
       /* calculating the distance */
-      distanceList[index] = measure / 2.0 * SOUND_SPEED;
+      distance = measure / 2.0 * SOUND_SPEED;
+      distanceList[index] = distance;
       index ++;
       if (index == LENGTH) {
         index = 0;
@@ -67,7 +76,7 @@ class Sonar {
       for (int i = 0; i < LENGTH; i++) {
         d += distanceList[i];
       }
-      distance = d / LENGTH;
+      mean = d / LENGTH;
     }
 
     /*

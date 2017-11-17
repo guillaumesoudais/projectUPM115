@@ -8,17 +8,17 @@
 int quartTour = 60;
 int smallTour = 6;
 int S_ANGLE = 10;
-int pas = 100;
+int pas = 50;
 int vit = 3;
 int MARGIN = 100;
-int MARGIN_RIGHT = 60;
+int MARGIN_RIGHT = 80;
 int MARGIN_FRONT = 100;
 
 class Brain {
   public :
     Sonar *sonar;
     Motors *motor;
-    int counter;
+    int counter = 0;
 
 
     Brain(Sonar *s, Motors *m) {
@@ -29,7 +29,7 @@ class Brain {
     void handleWall() {
       sonar->setAngle(0);
       delay(200);
-      sonar->update();
+      sonar->longUpdate();
       if (sonar->distance > 100) {
         sonar->setAngle(90);
         delay(200);
@@ -38,7 +38,7 @@ class Brain {
       else {
         sonar->setAngle(180);
         delay(200);
-        sonar->update();
+        sonar->longUpdate();
         if (sonar->distance > 100) {
           sonar->setAngle(90);
           delay(200);
@@ -66,25 +66,30 @@ class Brain {
 
     void moveToWall() {
       sonar->setAngle(90);
+      sonar->update();
       while (sonar->distance > MARGIN) {
         motor->slowMove(vit);
+        sonar->update();
       }
     } 
 
     void mainish() {
       sonar->setAngle(0);
-      sonar->update();
-      if (sonar->distance > MARGIN) {
+      sonar->longUpdate();
+      if (sonar->mean > MARGIN) {
         motor->turnRight(1, quartTour);
         sonar->update();
-        if (sonar->distance < MARGIN) {
+        if (sonar->distance < MARGIN || counter == 5) {
           moveToWall();
+          counter = 0;
         }
         else {
           pasEnAvant();
+          counter++;
         }
       }
       else {
+        counter = 0;
         int angle = S_ANGLE;
         sonar->setAngle(90);
         sonar->update();
@@ -99,7 +104,7 @@ class Brain {
 
     void followWall() {
       sonar->setAngle(40);
-      sonar->update();
+      sonar->longUpdate();
       counter = 0;
       for (int i=0; i<pas; i++) {
         if (sonar->distance > MARGIN_RIGHT) {
@@ -117,10 +122,10 @@ class Brain {
 
     void reorientation() {
       sonar->setAngle(90);
-      sonar->update();
+      sonar->longUpdate();
       while (sonar->distance < MARGIN_FRONT) {
         motor->moveLeft(2);
-        sonar->update();
+        sonar->longUpdate();
       }
     }
 
@@ -129,11 +134,17 @@ class Brain {
       followWall();
       if (counter == pas) {
         moveToWall();
+        counter = 0;
       }
       else if (counter == -pas) {
         motor->slowMove(1, false);
         reorientation();
+        counter = 0;
       }
+    }
+
+    void mainish3() {
+
     }
 
 };

@@ -41,7 +41,7 @@ void setup() {
 }
 
 void loop() {
-  brain->mainish2();
+  brain->mainish();
 
 }
 
