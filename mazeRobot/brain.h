@@ -102,51 +102,6 @@ class Brain {
       }
     }
 
-    void followWall() {
-      sonar->setAngle(40);
-      sonar->longUpdate();
-      counter = 0;
-      for (int i=0; i<pas; i++) {
-        if (sonar->distance > MARGIN_RIGHT) {
-          motor->moveRight(vit + 1);
-          motor->moveLeft(vit);
-          counter ++;
-        }
-        else {
-          motor->moveRight(vit);
-          motor->moveLeft(vit+1);
-          counter --;
-        }
-      }
-    }
-
-    void reorientation() {
-      sonar->setAngle(90);
-      sonar->longUpdate();
-      while (sonar->distance < MARGIN_FRONT) {
-        motor->moveLeft(2);
-        sonar->longUpdate();
-      }
-    }
-
-
-    void mainish2() {
-      followWall();
-      if (counter == pas) {
-        moveToWall();
-        counter = 0;
-      }
-      else if (counter == -pas) {
-        motor->slowMove(1, false);
-        reorientation();
-        counter = 0;
-      }
-    }
-
-    void mainish3() {
-
-    }
-
 };
 
 #endif
