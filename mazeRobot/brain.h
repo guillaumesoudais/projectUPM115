@@ -52,7 +52,7 @@ class Brain {
         }
       }
     }
-    void pasEnAvant() {
+    void pasEnAvant(boolean forward = true) {
 
       sonar->setAngle(90);
       for (int i =  0; i < pas ; i++) {
@@ -60,7 +60,7 @@ class Brain {
         if (sonar->distance < 100) {
           break;
         }
-        motor->slowMove(vit);
+        motor->slowMove(vit, forward);
       }
     }
 
@@ -73,6 +73,37 @@ class Brain {
       }
     } 
 
+    void setAlongWall() {
+      int angle = sonar->getMinimumAngle();
+      if (angle > 90) {
+        pasEnAvant(false);
+      }
+      motor->turnLeft(1, smallTour * angle / S_ANGLE);
+    }
+
+    void init() {
+      moveToWall();
+      setAlongWall();
+    }
+    
+    void mainish3() {
+      sonar->setAngle(0);
+      sonar->longUpdate();
+      if (sonar->mean > MARGIN) {
+        while (sonar->distance > MARGIN) {
+          motor->turnRight(1, smallTour);
+          sonar->update();
+        }
+      }
+      else {
+        while (sonar->distance < MARGIN) {
+          motor->turnLeft(1, smallTour);
+          sonar->update();
+        }
+      }
+      pasEnAvant();
+    }
+    
     void mainish() {
       sonar->setAngle(0);
       sonar->longUpdate();
@@ -143,9 +174,7 @@ class Brain {
       }
     }
 
-    void mainish3() {
-
-    }
+    
 
 };
 

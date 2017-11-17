@@ -38,10 +38,12 @@ void setup() {
   pinMode(bwdA, OUTPUT);
   pinMode(bwdB, OUTPUT);
   pinMode(pinServo, OUTPUT);
+
+  brain->init();
 }
 
 void loop() {
-  brain->mainish();
+  brain->mainish3();
 
 }
 

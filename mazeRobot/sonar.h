@@ -86,6 +86,23 @@ class Sonar {
       sonarServo.write(na);
       delay(100);
     }
+
+
+    int getMinimumAngle() {
+      setAngle(180);
+      int a = 180;
+      update();
+      int tmp;
+      while (distance <= tmp && a>0) {
+        a--;
+        tmp = distance;
+        setAngle(a);
+        update();
+      }
+      setAngle(a+1);
+      update();
+      return a+1;
+    }
 };
 
 #endif
