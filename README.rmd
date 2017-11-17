@@ -229,6 +229,9 @@ void moveToWall() {
 
 It goes forward until it meets an obstacle. 
 
-## Possible ameliorations
+## Possible improvements
 
--The body of the robot is too long. It is possible that the sonar passes in front of a wall and that the tail is still in front of the wall. So when it tries to turn, it hits the wall. In order to improve, the sonar should be above the rotation axis, so between the wheels. We tried to stick with a small body robot but could not fit everything on it, and the motors had a too high consumption of energy.
+- The body of the robot is too long. It is possible that the sonar passes in front of a wall and that the tail is still in front of the wall. So when it tries to turn, it hits the wall. In order to improve, the sonar should be above the rotation axis, so between the wheels. We tried to stick with a small body robot but could not fit everything on it, and the motors had a too high consumption of energy.
+- The moves of the robot when there were no obstacle around him were a bit hazardous. An idea was to make an *init() function* in the class *Brain* which would be lauched by the *setup* in order to find a wall and then follow it. We tried it but we hadn't the time to find a efficient version of this function because the sonar sometimes gets preposterous values.
+- The movements of the robot weren't precise. We could have write a calibration routine in the setup function during with the robot would have calibrate himself by finding a wall and rolling toward it and measuring the distance with the sonar.
+- 
