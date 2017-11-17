@@ -46,6 +46,7 @@ Schematics of the connection for the robot.
 Picture of the robot with all its messy wiring.
 
 ![alt text][robot]
+
 [robot]: https://github.com/guillaumesoudais/projectUPM115/blob/master/robot.jpg "Schematics"
 
 Here is a video of the final version of the project.
