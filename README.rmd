@@ -99,7 +99,7 @@ the function *longUpdate* does ten *update* in order to renew the *distanceList*
 
 #### motors
 
-The motors controls the two motors. It can activate them together or separately in both direction of rotation. 
+The motors controls the two motors. It can activate them together or separately in both direction of rotation.
 
 It has a specific function : *slowMove*
 
@@ -118,7 +118,7 @@ void slowMove(int n,boolean forward=true) {
 }
 ```
 
-then we have six different speeds with n going from 1 to 6. 
+then we have six different speeds with n going from 1 to 6.
 
 #### brain
 
@@ -128,13 +128,13 @@ But before looking at the code, we must understand the strategy used.
 
 ##### Escaping strategy
 
-The strategy used to escape a maze is very simple. 
+The strategy used to escape a maze is very simple.
 
 Since the robot only knows what is around him and what he has been through, we can't use algorithm such as Dijkstra to find the shortest path.
 
 So the path would not be optimal.
 
-The strategy is to *always take the direction that is most at right*. 
+The strategy is to *always take the direction that is most at right*.
 
 In mazes where the entry point and the exit are placed on the outside of the maze, this strategy doesn't suffer from loops.
 
@@ -147,7 +147,7 @@ We've been through several strategies :
 - then, we decided to use the same strategies as above but with *smaller angles* giving the robot the opportunity to easily correct the direction. So the robot was successively looking at his right, in front of him and at his left and turn from a little angle according to what he saw or moving forward and loop.
 - Another technique was to always move forward and to increase the speed of one of the wheel according to the distance measured on the right. But the sonar was less efficient in movement.
 
-So we finally used the second technique. 
+So we finally used the second technique.
 
 The strategy is basically :
 - look on the right
@@ -159,3 +159,5 @@ The strategy is basically :
 
 
 ## Possible ameliorations
+
+-The body of the robot is too long. It is possible that the sonar passes in front of a wall and that the tail is still in front of the wall. So when it tries to turn, it hits the wall. In order to improve, the sonar should be above the rotation axis, so between the wheels. We tried to stick with a small body robot but could not fit everything on it, and the motors had a too high consumption of energy.
