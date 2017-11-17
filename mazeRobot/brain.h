@@ -131,7 +131,7 @@ class Brain {
         moveToWall();
       }
       else if (counter == -pas) {
-        motor.slowMove(1, false);
+        motor->slowMove(1, false);
         reorientation();
       }
     }

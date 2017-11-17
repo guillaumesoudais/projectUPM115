@@ -78,7 +78,7 @@ class Motors {
       }
     }
 
-    void slowMove(int n, forward=true) {
+    void slowMove(int n,boolean forward=true) {
       move(255, forward);
       delay(n);
       stop();
