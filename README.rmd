@@ -38,12 +38,17 @@ Optional steps (if we have enough time) :
 - Servo
 
 ### Construction
+Schematics of the connection for the robot.
 ![alt text][schematics]
 
 [schematics]: https://github.com/guillaumesoudais/projectUPM115/blob/master/schematics.png "Schematics"
-![alt text][robot]
 
+Picture of the robot with all its messy wiring.
+
+![alt text][robot]
 [robot]: https://github.com/guillaumesoudais/projectUPM115/blob/master/robot.jpg "Schematics"
+
+Here is a video of the final version of the project.
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/FyLfuLq4kfI/0.jpg)](https://www.youtube.com/watch?v=FyLfuLq4kfI)
 
