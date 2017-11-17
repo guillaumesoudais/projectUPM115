@@ -151,11 +151,83 @@ So we finally used the second technique.
 
 The strategy is basically :
 - look on the right
-- if there is no close obstacle
+- if there is no close obstacle on the right
     - turn on right of an 90 degres angle
-    - if there is no obstacle, we move forward
+    - if there is no obstacle, we move forward (function *pasEnAvant*)
     - if there is an obstacle or if it's been 5 time we turned right (meaning there is no wall near) we move forward until there is a wall (function *moveToWall()*)
-- if there
+- if there is an obtacle on the right
+    - we look in front of the robot
+    - while there is an obstacle in front of him 
+        - the robot turn slightly left
+        - the sonar update
+    - then (there is no more obstacle in front of him) we move forward from a small distance (function *pasEnAvant*)
 
+Here is a code of the main function *mainish* that does the above strategy :
+
+```{cpp}
+void mainish() {
+    sonar->setAngle(0);
+    sonar->longUpdate();
+    if (sonar->mean > MARGIN) {
+    motor->turnRight(1, quartTour);
+    sonar->update();
+    if (sonar->distance < MARGIN || counter == 5) {
+        moveToWall();
+        counter = 0;
+    }
+    else {
+        pasEnAvant();
+        counter++;
+    }
+    }
+    else {
+    counter = 0;
+    int angle = S_ANGLE;
+    sonar->setAngle(90);
+    sonar->update();
+    while (sonar->distance < MARGIN) {
+        motor->turnLeft(1, smallTour);
+        angle += S_ANGLE;
+        sonar->update();
+    }
+    pasEnAvant();          
+    }
+}
+```
+
+Let's now take a look at *pasEnAvant* :
+
+```{cpp}
+void pasEnAvant() {
+    sonar->setAngle(90);
+    for (int i =  0; i < pas ; i++) {
+        sonar->update();
+        if (sonar->distance < 100) {
+            break;
+        }
+        motor->slowMove(vit);
+    }
+}
+```
+
+it goes forward of a fixed distance linked to the constant *pas* and then it stops. 
+
+If it gets close from an obstacle before reaching the fixed distance, it also stops.
+
+We also have the function *moveToWall* :
+
+```{cpp}
+void moveToWall() {
+    sonar->setAngle(90);
+    sonar->update();
+    while (sonar->distance > MARGIN) {
+        motor->slowMove(vit);
+        sonar->update();
+    }
+} 
+```
+
+It goes forward until it meets an obstacle. 
 
 ## Possible ameliorations
+
