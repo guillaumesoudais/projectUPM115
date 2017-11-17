@@ -160,4 +160,4 @@ The strategy is basically :
 
 ## Possible ameliorations
 
--The body of the robot is too long. It is possible that the sonar passes in front of a wall and that the tail is still in front of the wall. So when it tries to turn, it hits the wall. In order to improve, the sonar should be above the rotation axis, so between the wheels. We tried to stick with a small body robot but could not fit everything on it, and the motors had a too high consumption of energy.
+- The body of the robot is too long. It is possible that the sonar passes in front of a wall and that the tail is still in front of the wall. So when it tries to turn, it hits the wall. In order to improve, the sonar should be above the rotation axis, so between the wheels. We tried to stick with a small body robot but could not fit everything on it, and the motors had a too high consumption of energy.
