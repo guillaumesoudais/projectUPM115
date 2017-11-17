@@ -54,7 +54,7 @@ Then we have three modules :
 The sonar has a servo for attribute which can be commanded through the setAngle function.
 It has also an "udpdate()" function that read the angle of the Servo and calculate the distance.
 
-<code type="cpp">
+```{cpp}
 /* sending the instructon to measure the distance */
 digitalWrite(triggerPin, HIGH);
 delayMicroseconds(10);
@@ -76,7 +76,7 @@ for (int i = 0; i < LENGTH; i++) {
 d += distanceList[i];
 }
 mean = d / LENGTH;
-</code>
+```
 
 mean is an attribute that stores the mean of the ten last value (because sometimes values are not accurate).
 distance is an attribute that stores the last value.
