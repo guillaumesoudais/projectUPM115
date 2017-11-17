@@ -51,8 +51,8 @@ Then we have three modules :
 
 #### Sonar
 
-The sonar has a servo for attribute which can be commanded through the setAngle function.
-It has also an "udpdate()" function that read the angle of the Servo and calculate the distance.
+The sonar has a servo for attribute which can be commanded through the *setAngle* function.
+It has also an *udpdate()* function that read the angle of the Servo and calculate the distance.
 
 ```{cpp}
 /* sending the instructon to measure the distance */
@@ -68,22 +68,81 @@ distance = measure / 2.0 * SOUND_SPEED;
 distanceList[index] = distance;
 index ++;
 if (index == LENGTH) {
-index = 0;
+    index = 0;
 }
 
 float d = 0;
 for (int i = 0; i < LENGTH; i++) {
-d += distanceList[i];
+    d += distanceList[i];
 }
 mean = d / LENGTH;
 ```
 
-mean is an attribute that stores the mean of the ten last value (because sometimes values are not accurate).
-distance is an attribute that stores the last value.
-distanceList is an array that stores the ten last values.
+*mean* is an attribute that stores the mean of the ten last value (because sometimes values are not accurate).
+*distance* is an attribute that stores the last value.
+*distanceList* is an array that stores the ten last values.
+
+the function *longUpdate* does ten *update* in order to renew the *distanceList*
+
+#### motors
+
+The motors controls the two motors. It can activate them together or separately in both direction of rotation. 
+
+It has a specific function : *slowMove*
+
+Because we couldn't use the motor directly with low speed. We only had a 9V battery, so the torque was to high to go under 128 over 255 possible values of speed.
+
+Then to recreate a low speed movement, we decided to make the wheels turn briefly and then stop in a 6 miliseconds loop.
+
+We have the following function :
+
+```{cpp}
+void slowMove(int n,boolean forward=true) {
+    move(255, forward);
+    delay(n);
+    stop();
+    delay(6 - n);
+}
+```
+
+then we have six different speeds with n going from 1 to 6. 
+
+#### brain
+
+The brain has a object Motors and a Sonar as attributes, so it can command them.
+
+But before looking at the code, we must understand the strategy used.
+
+##### Escaping strategy
+
+The strategy used to escape a maze is very simple. 
+
+Since the robot only knows what is around him and what he has been through, we can't use algorithm such as Dijkstra to find the shortest path.
+
+So the path would not be optimal.
+
+The strategy is to *always take the direction that is most at right*. 
+
+In mazes where the entry point and the exit are placed on the outside of the maze, this strategy doesn't suffer from loops.
+
+In mazes where the arrival is not an exit but a point inside the maze, then loops can alter the resolution. But we won't consider this case here.
+
+As a matter of fact, considering the amount of time we were given, we only made a robot that is able to follow a wall at its right side.
+
+We've been through several strategies :
+- first, we thought about dealing only with mazes with right-angled corners. Then we would only had to *make rotations of 90 degres* and moving forward. But the motors weren't turning at the exact same speed and a calibration would have taken too much time.
+- then, we decided to use the same strategies as above but with *smaller angles* giving the robot the opportunity to easily correct the direction. So the robot was successively looking at his right, in front of him and at his left and turn from a little angle according to what he saw or moving forward and loop.
+- Another technique was to always move forward and to increase the speed of one of the wheel according to the distance measured on the right. But the sonar was less efficient in movement.
+
+So we finally used the second technique. 
+
+The strategy is basically :
+- look on the right
+- if there is no close obstacle
+    - turn on right of an 90 degres angle
+    - if there is no obstacle, we move forward
+    - if there is an obstacle or if it's been 5 time we turned right (meaning there is no wall near) we move forward until there is a wall (function *moveToWall()*)
+- if there
 
 
-### Escaping strategy
-
-
-### Problem encountered
+## Possible ameliorations

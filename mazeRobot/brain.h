@@ -26,34 +26,7 @@ class Brain {
       motor = m;
     }
 
-    void handleWall() {
-      sonar->setAngle(0);
-      delay(200);
-      sonar->longUpdate();
-      if (sonar->distance > 100) {
-        sonar->setAngle(90);
-        delay(200);
-        motor->turnRight( vit, quartTour);
-      }
-      else {
-        sonar->setAngle(180);
-        delay(200);
-        sonar->longUpdate();
-        if (sonar->distance > 100) {
-          sonar->setAngle(90);
-          delay(200);
-          motor->turnLeft( vit, quartTour);
-        }
-        else {
-          sonar->setAngle(90);
-          delay(200);
-          motor->turnLeft( vit, 2 * quartTour);
-
-        }
-      }
-    }
     void pasEnAvant() {
-
       sonar->setAngle(90);
       for (int i =  0; i < pas ; i++) {
         sonar->update();
@@ -101,7 +74,6 @@ class Brain {
         pasEnAvant();          
       }
     }
-
 };
 
 #endif
