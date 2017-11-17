@@ -1,0 +1,36 @@
+# Escaping Robot (UPM115 Project)
+
+## Introduction 
+
+The aim of the project is to make a robot that is able to find the exit of a maze. 
+The strategy of the robot is to take the direction that is on the most on the left. 
+For that we will use a ultrasonic sensor mounted on a servo motor to find this direction and two motors for the two wheels of the robot. 
+If we have enough time, we can make this robot to map the maze it’s in.
+
+## General architecture of the project
+
+The project will have the following modules :
+- The movement module which is the module that makes the robot moving. Its entry points are the direction and speed commands
+- The sonar module which detects obstacles. Its entry points are angles for the servo motor and it must send the distance of the obstacle to the command module
+- The command module which receive information from the sonar and decide of the direction and speed of the robot as well as its sonar orientation
+Optional modules (if we have enough time) :
+- The mapping module : receives information from the servo and the command module to record obstacle position
+
+## Stages of the project
+
+To realise this project we will use an incremental method. Below are the stages of the project:
+- Realizing the movement module : add a few tests function with recorded moves to verify that the module is working
+- Realizing the sonar module : same principle as previous step
+- Realizing the command module
+Optional steps (if we have enough time) :
+- Mapping the path of the robot : be able to deduce the path of the robot from the commands of the wheels (admitting it will not slide)
+- Mapping the obstacle : from the position of the robot obtained in the previous step and the position of the obstacle, mapping the obstacles of the maze
+- Find a shorter path : after mapping the path of the robot, deduce a shorter path by eliminating dead-ends
+
+## Material needed
+- Arduino uno
+- Ultrasonic sensor
+- Batteries
+- DC motors 
+- Servo
+
