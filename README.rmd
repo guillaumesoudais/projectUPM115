@@ -1,10 +1,10 @@
 # Escaping Robot (UPM115 Project)
 
-## Introduction 
+## Introduction
 
-The aim of the project is to make a robot that is able to find the exit of a maze. 
-The strategy of the robot is to take the direction that is on the most on the left. 
-For that we will use a ultrasonic sensor mounted on a servo motor to find this direction and two motors for the two wheels of the robot. 
+The aim of the project is to make a robot that is able to find the exit of a maze.
+The strategy of the robot is to take the direction that is on the most on the left.
+For that we will use a ultrasonic sensor mounted on a servo motor to find this direction and two motors for the two wheels of the robot.
 If we have enough time, we can make this robot to map the maze it’s in.
 
 ## General architecture of the project
@@ -34,16 +34,29 @@ Optional steps (if we have enough time) :
 - Arduino uno
 - Ultrasonic sensor
 - Batteries
-- DC motors 
+- DC motors
 - Servo
 
 ### Construction
+Schematics of the connection for the robot.
+![alt text][schematics]
 
+[schematics]: https://github.com/guillaumesoudais/projectUPM115/blob/master/schematics.png "Schematics"
+
+Picture of the robot with all its messy wiring.
+
+![alt text][robot]
+
+[robot]: https://github.com/guillaumesoudais/projectUPM115/blob/master/robot.jpg "Schematics"
+
+Here is a video of the final version of the project.
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/FyLfuLq4kfI/0.jpg)](https://www.youtube.com/watch?v=FyLfuLq4kfI)
 
 
 ### Code structure
 
-the main code is in mazeRobot.ino where we initialize the constant needed (e.g. pins). 
+the main code is in mazeRobot.ino where we initialize the constant needed (e.g. pins).
 Then we have three modules :
 - sonar.h  that commands the sonar
 - motors.h that commands the wheels
