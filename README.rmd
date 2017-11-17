@@ -5,7 +5,7 @@
 The aim of the project is to make a robot that is able to find the exit of a maze.
 The strategy of the robot is to take the direction that is on the most on the left.
 For that we will use a ultrasonic sensor mounted on a servo motor to find this direction and two motors for the two wheels of the robot.
-If we have enough time, we can make this robot to map the maze it’s in.
+If we had enough time, we would have made this robot to map the maze it’s in.
 
 ## General architecture of the project
 
@@ -13,7 +13,7 @@ The project will have the following modules :
 - The movement module which is the module that makes the robot moving. Its entry points are the direction and speed commands
 - The sonar module which detects obstacles. Its entry points are angles for the servo motor and it must send the distance of the obstacle to the command module
 - The command module which receive information from the sonar and decide of the direction and speed of the robot as well as its sonar orientation
-Optional modules (if we have enough time) :
+Optional modules (if we have had enough time) :
 - The mapping module : receives information from the servo and the command module to record obstacle position
 
 ## Stages of the project
@@ -22,7 +22,7 @@ To realise this project we will use an incremental method. Below are the stages 
 - Realizing the movement module : add a few tests function with recorded moves to verify that the module is working
 - Realizing the sonar module : same principle as previous step
 - Realizing the command module
-Optional steps (if we have enough time) :
+Optional steps (if we have had enough time) :
 - Mapping the path of the robot : be able to deduce the path of the robot from the commands of the wheels (admitting it will not slide)
 - Mapping the obstacle : from the position of the robot obtained in the previous step and the position of the obstacle, mapping the obstacles of the maze
 - Find a shorter path : after mapping the path of the robot, deduce a shorter path by eliminating dead-ends
@@ -234,6 +234,7 @@ It goes forward until it meets an obstacle.
 - The body of the robot is too long. It is possible that the sonar passes in front of a wall and that the tail is still in front of the wall. So when it tries to turn, it hits the wall. In order to improve, the sonar should be above the rotation axis, so between the wheels. We tried to stick with a small body robot but could not fit everything on it, and the motors had a too high consumption of energy.
 - The moves of the robot when there were no obstacle around him were a bit hazardous. An idea was to make an *init() function* in the class *Brain* which would be lauched by the *setup* in order to find a wall and then follow it. We tried it but we hadn't the time to find a efficient version of this function because the sonar sometimes gets preposterous values.
 - The movements of the robot weren't precise. We could have write a calibration routine in the setup function during with the robot would have calibrate himself by finding a wall and rolling toward it and measuring the distance with the sonar.
+- With a calibrated robot, we could have mapped the maze in order to find a shorter way later
 - We wrote a *getMinimumAngle* function that would have allowed us to find the angle for which the sonar measure the minimal distance. This would have helped to locate the obstacle and get a more precise measure of its distance. We didn't use it because it slowed down the robot
 
 ```{cpp}
@@ -254,3 +255,5 @@ int getMinimumAngle(int max, int pas) {
     return res;
 }
 ```
+
+
