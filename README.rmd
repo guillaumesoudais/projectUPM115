@@ -27,10 +27,63 @@ Optional steps (if we have enough time) :
 - Mapping the obstacle : from the position of the robot obtained in the previous step and the position of the obstacle, mapping the obstacles of the maze
 - Find a shorter path : after mapping the path of the robot, deduce a shorter path by eliminating dead-ends
 
-## Material needed
+
+## Realisation of the project
+
+### Material needed
 - Arduino uno
 - Ultrasonic sensor
 - Batteries
 - DC motors 
 - Servo
 
+### Construction
+
+
+
+### Code structure
+
+the main code is in mazeRobot.ino where we initialize the constant needed (e.g. pins). 
+Then we have three modules :
+- sonar.h  that commands the sonar
+- motors.h that commands the wheels
+- brain.h that is where the escaping strategy is implemented.
+
+#### Sonar
+
+The sonar has a servo for attribute which can be commanded through the setAngle function.
+It has also an "udpdate()" function that read the angle of the Servo and calculate the distance.
+
+<code type="cpp">
+/* sending the instructon to measure the distance */
+digitalWrite(triggerPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(triggerPin, LOW);
+
+/* measuring time between sending and receiving of the impulsion */
+long measure = pulseIn(echoPin, HIGH, MEASURE_TIMEOUT);
+
+/* calculating the distance */
+distance = measure / 2.0 * SOUND_SPEED;
+distanceList[index] = distance;
+index ++;
+if (index == LENGTH) {
+index = 0;
+}
+
+float d = 0;
+for (int i = 0; i < LENGTH; i++) {
+d += distanceList[i];
+}
+mean = d / LENGTH;
+</code>
+
+mean is an attribute that stores the mean of the ten last value (because sometimes values are not accurate).
+distance is an attribute that stores the last value.
+distanceList is an array that stores the ten last values.
+
+
+### Escaping strategy
+
+
+### Problem encountered
