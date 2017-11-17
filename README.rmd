@@ -40,10 +40,10 @@ Optional steps (if we have enough time) :
 ### Construction
 ![alt text][schematics]
 
-[schematics]: https://github.com/guillaumesoudais/projectUPM115/schematics.png "Schematics"
+[schematics]: https://github.com/guillaumesoudais/projectUPM115/blob/master/schematics.png "Schematics"
 ![alt text][robot]
 
-[robot]: https://github.com/guillaumesoudais/projectUPM115/robot.jpg "Schematics"
+[robot]: https://github.com/guillaumesoudais/projectUPM115/blob/master/robot.jpg "Schematics"
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/FyLfuLq4kfI/0.jpg)](https://www.youtube.com/watch?v=FyLfuLq4kfI)
 
